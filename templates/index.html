@@ -9,15 +9,20 @@
 </head>
 <body>
     <div id="bar" style="width:1000px; height:600px;"></div>
+    <div id="aar" style="width:1000px; height:600px;"></div>
+    <div id="car" style="width:1000px; height:600px;"></div>
     <script>
         var chart = echarts.init(document.getElementById('bar'), 'white', {renderer: 'canvas'});
-
+        var chart_aar = echarts.init(document.getElementById('aar'), 'white', {renderer: 'canvas'});
+        var chart_car = echarts.init(document.getElementById('car'), 'white', {renderer: 'canvas'});
         $(
             function () {
                 getData(chart);
+                getaar(chart_aar);
+                getcar(chart_car);
+
             }
         );
-
         function getData() {
             $.ajax({
                 type: "GET",
@@ -28,6 +33,28 @@
                 }
             });
         }
+        function getaar() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/aar",
+                dataType: 'json',
+                success: function (result) {
+                    chart_aar.setOption(result.data);
+                }
+            });
+        }
+
+          function getcar() {
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8000/car",
+                dataType: 'json',
+                success: function (result) {
+                    chart_car.setOption(result.data);
+                }
+            });
+        }
+
     </script>
 </body>
 </html>
